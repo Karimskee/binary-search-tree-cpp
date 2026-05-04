@@ -30,6 +30,7 @@ bool isTreeEmpty(node* root);
 node* searchTree(node* root, int val);
 void printBinaryTree(node* root);
 int numOfLeaves(node* root, int count = 0);
+int numOfNodes(node* root, int count = 0);
 
 /****************************************************************************************/
 /*        ██╗  ██╗ █████╗ ██████╗ ██╗███╗   ███╗███████╗██╗  ██╗███████╗███████╗        */
@@ -68,6 +69,7 @@ int main() {
     printBinaryTree(bst);
     space(1);
 
+    cout << numOfNodes(bst, 0) << endl;
     cout << numOfLeaves(bst) << endl;
 
     cout << resetColor;
@@ -161,6 +163,13 @@ void printBinaryTree(node* root) {
 
     printBinaryTree(root->left);
     printBinaryTree(root->right);
+}
+
+int numOfNodes(node* root, int count) {
+    if (root == NULL)
+        return 0;
+
+    return 1 + numOfNodes(root->left, count) + numOfNodes(root->right, count);
 }
 
 int numOfLeaves(node* root, int count) {
