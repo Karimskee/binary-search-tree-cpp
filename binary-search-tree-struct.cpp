@@ -28,9 +28,11 @@ string color(const string& hex); // ANSI terminal color set
 node* createBinaryTree(vector<int> elements = {});
 bool isTreeEmpty(node* root);
 node* searchTree(node* root, int val);
+void insertNode(node* root, int val);
 void printBinaryTree(node* root);
-int numOfLeaves(node* root, int count = 0);
 int numOfNodes(node* root, int count = 0);
+int numOfLeaves(node* root, int count = 0);
+
 
 /****************************************************************************************/
 /*        ██╗  ██╗ █████╗ ██████╗ ██╗███╗   ███╗███████╗██╗  ██╗███████╗███████╗        */
@@ -71,6 +73,10 @@ int main() {
 
     cout << numOfNodes(bst, 0) << endl;
     cout << numOfLeaves(bst) << endl;
+
+    insertNode(bst, 15);
+    printBinaryTree(bst);
+    insertNode(bst, 4);
 
     cout << resetColor;
 }
@@ -149,6 +155,43 @@ node* searchTree(node* root, int val) {
             itr = itr->left;
         else
             itr = itr->right;
+    }
+}
+
+void insertNode(node* root, int val) {
+    node* itr = root;
+
+    while (true) {
+        if (itr->val == val) {
+            cout << "The number " << val << " already exists." << endl;
+            return;
+        }
+        else if (val < itr->val) {
+            if (itr->left == NULL) {
+                itr->left = new node;
+                itr = itr->left;
+
+                itr->val = val;
+                itr->isEmpty = false;
+                cout << "The number " << val << " has been inserted to the tree." << endl;
+                return;
+            }
+
+            itr = itr->left;
+        }
+        else {
+            if (itr->right == NULL) {
+                itr->right = new node;
+                itr = itr->right;
+
+                itr->val = val;
+                itr->isEmpty = false;
+                cout << "The number " << val << " has been inserted to the tree." << endl;
+                return;
+            }
+
+            itr = itr->right;
+        }
     }
 }
 
