@@ -29,6 +29,7 @@ node* createBinaryTree(vector<int> elements = {});
 bool isTreeEmpty(node* root);
 node* searchTree(node* root, int val);
 void insertNode(node* root, int val);
+void deleteNode(node* root, int val);
 void printBinaryTree(node* root);
 int numOfNodes(node* root, int count = 0);
 int numOfLeaves(node* root, int count = 0);
@@ -77,6 +78,17 @@ int main() {
     insertNode(bst, 15);
     printBinaryTree(bst);
     insertNode(bst, 4);
+
+    deleteNode(bst, 4);
+    deleteNode(bst, -1);
+    deleteNode(bst, 0);
+    deleteNode(bst, 4);
+    deleteNode(bst, 3);
+    deleteNode(bst, 5);
+    deleteNode(bst, 0);
+    deleteNode(bst, 5);
+    deleteNode(bst, 7);
+    printBinaryTree(bst);
 
     cout << resetColor;
 }
@@ -137,6 +149,100 @@ bool isTreeEmpty(node* root) {
 
     cout << "Tree is not empty" << endl;
     return false;
+}
+
+void deleteNode(node* root, int val) {
+    node* parent = NULL;
+    node* current = root;
+
+    while (current != NULL && current->val != val) {
+        parent = current;
+        if (val < current->val) {
+            current = current->left;
+        }
+        else {
+            current = current->right;
+        }
+    }
+
+    while (true) {
+        if (current == NULL) {
+            cout << "The number " << val << " not found." << endl;
+            return;
+        }
+        if (current->left == NULL && current->right == NULL) {
+            if (parent == NULL) {
+                delete root;
+                root = NULL;
+                return;
+            }
+            else {
+                if (parent->left == current)
+                    parent->left = NULL;
+                else
+                    parent->right = NULL;
+
+                delete current;
+                return;
+            }
+        }
+        else if (current->left == NULL) {
+            node* child = current->right;
+
+            if (parent == NULL) {
+                delete current;
+                root = child;
+                return;
+            }
+            else {
+                if (parent->left == current)
+                    parent->left = child;
+                else
+                    parent->right = child;
+
+                delete current;
+                return;
+            }
+        }
+        else if (current->right == NULL) {
+            node* child = current->left;
+
+            if (parent == NULL) {
+                delete current;
+                root = child;
+                return;
+            }
+            else {
+                if (parent->left == current)
+                    parent->left = child;
+                else
+                    parent->right = child;
+
+                delete current;
+                return;
+            }
+        }
+        else {
+            node* succParent = current;
+            node* successor = current->right;
+
+            while (successor->left != NULL) {
+                succParent = successor;
+                successor = successor->left;
+            }
+            // Replace current's val with successor's val
+            current->val = successor->val;
+            // Now delete successor, which has at most one child (right)
+            if (succParent->left == successor) {
+                succParent->left = successor->right;
+            }
+            else {
+                succParent->right = successor->right;
+            }
+            delete successor;
+            return;
+        }
+    }
 }
 
 node* searchTree(node* root, int val) {
