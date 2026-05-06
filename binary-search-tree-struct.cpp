@@ -33,6 +33,7 @@ void deleteNode(node* root, int val);
 void printBinaryTree(node* root);
 int numOfNodes(node* root, int count = 0);
 int numOfLeaves(node* root, int count = 0);
+int heightOfTree(node* root, int height = 0);
 
 
 /****************************************************************************************/
@@ -63,6 +64,8 @@ int main() {
     vector<int> elements = { 5, 3, 6, 4, 1, 7, 8, 12, 0 };
     node* bst = createBinaryTree(elements);
 
+    cout << "Height of the tree: " << heightOfTree(bst) << endl;
+
     isTreeEmpty(bst);
 
     searchTree(bst, -1);
@@ -77,7 +80,9 @@ int main() {
 
     insertNode(bst, 15);
     printBinaryTree(bst);
+    cout << "Height of the tree: " << heightOfTree(bst) << endl;
     insertNode(bst, 4);
+
 
     deleteNode(bst, 4);
     deleteNode(bst, -1);
@@ -89,6 +94,8 @@ int main() {
     deleteNode(bst, 5);
     deleteNode(bst, 7);
     printBinaryTree(bst);
+
+    cout << "Height of the tree: " << heightOfTree(bst) << endl;
 
     cout << resetColor;
 }
@@ -329,6 +336,18 @@ int numOfLeaves(node* root, int count) {
         return 1;
 
     return numOfLeaves(root->left) + numOfLeaves(root->right);
+}
+
+int heightOfTree(node* root, int height) {
+    if (height == 0 && root != NULL)
+        height = 1;
+
+    if (root->left != NULL)
+        height = max(height, heightOfTree(root->left, height + 1));
+    if (root->right != NULL)
+        height = max(height, heightOfTree(root->right, height + 1));
+
+    return height;
 }
 
 void space(long long n) {
