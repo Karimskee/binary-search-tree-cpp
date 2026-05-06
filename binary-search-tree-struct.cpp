@@ -342,10 +342,9 @@ int heightOfTree(node* root, int height) {
     if (height == 0 && root != NULL)
         height = 1;
 
-    if (root->left != NULL)
-        height = max(height, heightOfTree(root->left, height + 1));
-    if (root->right != NULL)
-        height = max(height, heightOfTree(root->right, height + 1));
+    height = max({height,   
+        root->left != NULL ? heightOfTree(root->left, height + 1) : height,
+        root->right != NULL ? heightOfTree(root->right, height + 1) : height});
 
     return height;
 }
