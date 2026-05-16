@@ -59,31 +59,56 @@ int main() {
     space(100);
 
     node* thisIsEmpty = createBinaryTree();
+    
     isTreeEmpty(thisIsEmpty);
+
+    space(1);
 
     vector<int> elements = { 5, 3, 6, 4, 1, 7, 8, 12, 0 };
     node* bst = createBinaryTree(elements);
 
+    space(1);
+
     cout << "Height of the tree: " << heightOfTree(bst) << endl;
 
+    space(1);
+
     isTreeEmpty(bst);
+    
+    space(1);
 
     searchTree(bst, -1);
     searchTree(bst, 8);
     searchTree(bst, 5);
 
-    printBinaryTree(bst);
     space(1);
 
-    cout << numOfNodes(bst, 0) << endl;
-    cout << numOfLeaves(bst) << endl;
+    cout << "Visualization of the BST as a map:" << endl;
+    printBinaryTree(bst);
+    
+    space(1);
+
+    cout << "Number of nodes: " << numOfNodes(bst, 0) << endl;
+    cout << "Number of leaves: " << numOfLeaves(bst) << endl;
+
+    space(1);
 
     insertNode(bst, 15);
+    
+    space(1);
+
+    cout << "Visualization of the BST as a map after adding '15':" << endl;
     printBinaryTree(bst);
+
+    space(1);
+
     cout << "Height of the tree: " << heightOfTree(bst) << endl;
+    
+    space(1);
+
     insertNode(bst, 4);
-
-
+    
+    cout << "Deleting some values from the BST." << endl;
     deleteNode(bst, 4);
     deleteNode(bst, -1);
     deleteNode(bst, 0);
@@ -93,6 +118,10 @@ int main() {
     deleteNode(bst, 0);
     deleteNode(bst, 5);
     deleteNode(bst, 7);
+
+    insertNode(bst, 7);
+
+    cout << "Visualization of the BST as a map after deleting and inserting some values:" << endl;
     printBinaryTree(bst);
 
     cout << "Height of the tree: " << heightOfTree(bst) << endl;
