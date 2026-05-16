@@ -35,6 +35,7 @@ int numOfNodes(node* root, int count = 0);
 int numOfLeaves(node* root, int count = 0);
 int heightOfTree(node* root, int height = 0);
 
+void print2D(node *r, int space = 0);
 
 /****************************************************************************************/
 /*        ██╗  ██╗ █████╗ ██████╗ ██╗███╗   ███╗███████╗██╗  ██╗███████╗███████╗        */
@@ -125,6 +126,15 @@ int main() {
     printBinaryTree(bst);
 
     cout << "Height of the tree: " << heightOfTree(bst) << endl;
+
+    space(1);
+
+
+    cout << "Copying the tree..." << endl;
+    node* newBST = copyBinaryTree(bst);
+
+    cout << "Visualization of the new BST in 2D:" << endl;
+    print2D(newBST);
 
     cout << resetColor;
 }
@@ -378,6 +388,25 @@ int heightOfTree(node* root, int height) {
     return height;
 }
 
+void print2D(node *r, int space)
+{
+
+    if (r == NULL) // Base case 1
+        return;
+
+    space += 10; // Increase distance between levels 2
+
+    print2D(r->right, space); // Process right child first 3
+
+    cout << endl;
+
+    for (int i = 10; i < space; i++) // 5
+        cout << " "; // 5.1
+
+    cout << r->val << "\n"; // 6
+
+    print2D(r->left, space); // Process left child 7
+}
 void space(long long n) {
     for (int i = 0; i < n; i++)
         cout << endl;
