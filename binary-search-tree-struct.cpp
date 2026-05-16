@@ -395,24 +395,22 @@ int heightOfTree(node* root, int height) {
     return height;
 }
 
-void print2D(node *r, int space)
-{
-
-    if (r == NULL) // Base case 1
+void print2D(node *root, int space) {
+    if (root == NULL)
         return;
 
-    space += 10; // Increase distance between levels 2
+    space += 10;
 
-    print2D(r->right, space); // Process right child first 3
+    print2D(root->right, space);
 
     cout << endl;
 
-    for (int i = 10; i < space; i++) // 5
-        cout << " "; // 5.1
+    for (int i = 10; i < space; i++)
+        cout << " ";
 
-    cout << r->val << "\n"; // 6
+    cout << root->val << endl;
 
-    print2D(r->left, space); // Process left child 7
+    print2D(root->left, space);
 }
 
 node* copyBinaryTree(node* root, node* newTreeRoot, node* itr) {
