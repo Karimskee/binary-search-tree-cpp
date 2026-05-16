@@ -34,8 +34,8 @@ void printBinaryTree(node* root);
 int numOfNodes(node* root, int count = 0);
 int numOfLeaves(node* root, int count = 0);
 int heightOfTree(node* root, int height = 0);
-
 void print2D(node *r, int space = 0);
+node* copyBinaryTree(node* root, node* newTreeRoot = NULL, node* itr = NULL);
 
 /****************************************************************************************/
 /*        ██╗  ██╗ █████╗ ██████╗ ██╗███╗   ███╗███████╗██╗  ██╗███████╗███████╗        */
@@ -124,6 +124,13 @@ int main() {
 
     cout << "Visualization of the BST as a map after deleting and inserting some values:" << endl;
     printBinaryTree(bst);
+
+    space(1);
+
+    cout << "Visualization of the BST in 2D after deleting some values:" << endl;
+    print2D(bst);
+
+    space(1);
 
     cout << "Height of the tree: " << heightOfTree(bst) << endl;
 
@@ -407,6 +414,34 @@ void print2D(node *r, int space)
 
     print2D(r->left, space); // Process left child 7
 }
+
+node* copyBinaryTree(node* root, node* newTreeRoot, node* itr) {
+    if (newTreeRoot == NULL) {
+        newTreeRoot = new node();
+        itr = newTreeRoot;
+    }
+
+    if (root == NULL)
+        return NULL;
+
+    if (itr == NULL)
+        itr = new node();
+
+    itr->val = root->val;
+
+    if (root->left != NULL) {
+        itr->left = new node();
+        copyBinaryTree(root->left, newTreeRoot, itr->left);
+    }
+
+    if (root->right != NULL) {
+        itr->right = new node();
+        copyBinaryTree(root->right, newTreeRoot, itr->right);
+    }
+
+    return newTreeRoot;
+}
+
 void space(long long n) {
     for (int i = 0; i < n; i++)
         cout << endl;
